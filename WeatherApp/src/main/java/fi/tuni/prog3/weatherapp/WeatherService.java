@@ -17,6 +17,7 @@ public class WeatherService implements iAPI {
     @Override
     public List<String> lookUpLocation(String loc) {
         try {
+            String API_KEY = "cda257269cd8f052e74dc19afdd5252c";
             // Construct the URL with the latitude, longitude, and API key
             String apiUrl = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", loc, API_KEY);
             URL url = new URL(apiUrl);
@@ -54,6 +55,17 @@ public class WeatherService implements iAPI {
 
     }
 
+    @Override
+    public String getCurrentWeather(double lat, double lon) {
+        return "sunny";
+    }
+
+    @Override
+    public String getForecast(double lat, double lon) {
+        return null;
+    }
+
+    /*
     @Override
     public JsonObject getCurrentWeather(double lat, double lon) {
         try {
@@ -121,5 +133,5 @@ public class WeatherService implements iAPI {
                 return null;
             }
         }
-
+    */
 }

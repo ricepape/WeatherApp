@@ -1,16 +1,16 @@
 package fi.tuni.prog3.weatherapp;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+//import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class WeatherView {
 
-    private Label temperatureLabel;
-    private Label maxTempLabel;
-    private Label minTempLabel;
-    private ImageView weatherImage;
+    private final Label temperatureLabel;
+    private final Label maxTempLabel;
+    private final Label minTempLabel;
+    private final ImageView weatherImage;
     //private TextField location;
 
     // Maybe implementing search (textfield) and displaying other information

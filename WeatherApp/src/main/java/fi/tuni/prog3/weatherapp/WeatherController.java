@@ -23,14 +23,14 @@ public class WeatherController {
     private WeatherView view;
 
     // Initialize the WeatherController
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.view = new WeatherView(temperatureLabel,maxTemperatureLabel,minTemperatureLabel,weatherImage);
     }
 
     // Get weather data from API
     public void getWeatherData(ActionEvent event) {
         // Get the location (lat and lon from input). If the inputs are acceptable, then get data
+
     }
 
     // Update the UI

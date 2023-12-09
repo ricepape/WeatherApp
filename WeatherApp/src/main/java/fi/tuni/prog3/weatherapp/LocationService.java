@@ -3,8 +3,13 @@ package fi.tuni.prog3.weatherapp;
 import java.io.*;
 
 public class LocationService {
-    private static final String LAST_LOCATION_FILE = "last_location.txt";
+    //private static final String LAST_LOCATION_FILE = "last_location.txt";
 
+    public static Location getLastLocation() {
+        return new Location("Tampere","Finland",612956.80,234713.63);
+    }
+
+    /*
     public static Location getLastLocation() {
         try (BufferedReader reader = new BufferedReader(new FileReader(LAST_LOCATION_FILE))) {
             String line = reader.readLine();
@@ -31,4 +36,5 @@ public class LocationService {
             e.printStackTrace(); // Handle the exception appropriately
         }
     }
+     */
 }
