@@ -30,4 +30,5 @@ public class Location {
     public double getLon() {
         return lon;
     }
+
 }

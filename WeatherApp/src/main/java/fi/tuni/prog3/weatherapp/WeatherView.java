@@ -1,7 +1,9 @@
 package fi.tuni.prog3.weatherapp;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 //import javafx.scene.control.TextField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,18 +11,29 @@ public class WeatherView {
 
     private final Label temperatureLabel;
     private final Label maxTempLabel;
-    private final Label minTempLabel;
-    private final ImageView weatherImage;
-    //private TextField location;
-
-    // Maybe implementing search (textfield) and displaying other information
+    private Label minTempLabel;
+    private ImageView weatherImage;
+    private ImageView titleImage;
+    private TextField locationInput;
+    private Label feelsLikeLabel;
+    private Label airQualityLabel;
+    private Label rainIntensityLabel;
+    private Label windSpeedLabel;
 
     // Default constructor
-    public WeatherView(Label temperatureLabel, Label maxTempLabel, Label minTempLabel, ImageView weatherImage) {
+    public WeatherView(Label temperatureLabel, Label maxTempLabel, Label minTempLabel, ImageView weatherImage, ImageView titleImage,
+                       TextField locationInput, Label feelsLikeLabel, Label airQualityLabel, Label rainIntensityLabel,
+                       Label windSpeedLabel) {
         this.temperatureLabel = temperatureLabel;
         this.maxTempLabel = maxTempLabel;
         this.minTempLabel = minTempLabel;
         this.weatherImage =weatherImage;
+        this.titleImage = titleImage;
+        this.locationInput = locationInput;
+        this.feelsLikeLabel = feelsLikeLabel;
+        this.airQualityLabel = airQualityLabel;
+        this.rainIntensityLabel = rainIntensityLabel;
+        this.windSpeedLabel = windSpeedLabel;
     }
 
     // Set temperature label
@@ -37,9 +50,21 @@ public class WeatherView {
     public void setMinTempLabel(String minTemp) {
         minTempLabel.setText(minTemp);
     }
+    public void setFeelsLikeLabel(String feelsLike) {feelsLikeLabel.setText(feelsLike);}
+    public void setAirQualityLabel(String airQuality) {airQualityLabel.setText(airQuality);}
+    public void setRainIntensityLabel(String rainIntensity) {rainIntensityLabel.setText(rainIntensity);}
+    public void setWindSpeedLabel(String windSpeed) {windSpeedLabel.setText(windSpeed);}
 
     public void setWeatherImage(String imageUrl) {
         Image weatherIconImage = new Image(imageUrl);
         weatherImage.setImage(weatherIconImage);
+    }
+    public String getLocationInput() {
+        return locationInput.getText();
+    }
+
+    public void setTitleImage(String imageUrl) {
+        Image weatherIconImage = new Image(imageUrl);
+        titleImage.setImage(weatherIconImage);
     }
 }
