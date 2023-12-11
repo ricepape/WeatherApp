@@ -3,6 +3,8 @@ package fi.tuni.prog3.weatherapp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,37 +28,47 @@ public class MainWindowController {
     private Button imperialButton;
 
     @FXML
-    private StackPane contentArea;
+    private AnchorPane anchorPane;
 
     @FXML
-    private HBox contentPane;
+    private StackPane contentArea; // can be switched among forecast, history, maps. forecast is default.
 
+    // Displaying hourly weather forecast
     @FXML
-    private VBox mainPane; // displaying current weather, buttons, and 5 days forecast (default)
-
+    private VBox forecastHourlyPane;
     @FXML
-    private VBox forecastHourlyPane; // displaying hourly weather forecast
+    private HBox forecastH1;
+    @FXML
+    private HBox forecastH2;
+    @FXML
+    private HBox forecastH3;
+    @FXML
+    private HBox forecastH4;
+    @FXML
+    private HBox forecastH5;
+    @FXML
+    private HBox forecastH6;
+    @FXML
+    private HBox forecastH7;
 
     private void loadFXML(String fileName) throws IOException {
         try {
-            contentArea.getChildren().clear();
+            anchorPane.getChildren().clear();
             System.out.println("Loading " + fileName);
             FXMLLoader fxmlLoader = new FXMLLoader(WeatherApp.class.getResource(fileName));
-            contentArea.getChildren().add(fxmlLoader.load());
+            anchorPane.getChildren().add(fxmlLoader.load());
         } catch (IOException e){
             // Handle the exception.
         }
     }
 
     public void initialize() throws IOException {
-        forecastButton.setUserData("forecastButton");
-        searchButton.setUserData("searchButton");
-        historyButton.setUserData("historyButton");
-        mapsButton.setUserData("mapsButton");
-        imperialButton.setUserData("imperialButton");
 
         // set the default to forecastButton and load the corresponding fxml
-        loadFXML("main.fxml");
+        loadFXML("Main.fxml");
+
+        //String displayedView;
+
     }
 
 }

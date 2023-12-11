@@ -27,43 +27,6 @@ public class LocationService {
         }
     }
 
-    public JsonObject getCurrentWeather(double lat, double lon) {
-        try {
-            String API_KEY = "Replace with API key";
-
-            // Construct the URL with the latitude, longitude, and API key
-            String apiUrl = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%.2f&lon=%.2f&appid=%s", lat, lon, API_KEY);
-            URL url = new URL(apiUrl);
-
-            // Create the connection
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            // Read the response
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-
-            reader.close();
-
-            // Parse the JSON response using JsonParser
-            JsonParser parser = new JsonParser();
-
-            // Return the JsonObject
-            // Return the JsonObject
-            // Return the JSONObject
-            return parser.parse(response.toString()).getAsJsonObject();
-
-        } catch (IOException e) {
-            // Handle exceptions, such as network errors
-            return null;
-        }
-    }
-
     public String lookUpLocation(String loc){
         try {
             String API_KEY = "Replace with API key";

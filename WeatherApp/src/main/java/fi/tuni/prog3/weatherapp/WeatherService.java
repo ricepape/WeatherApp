@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherService implements iAPI {
+    String API_KEY = "cda257269cd8f052e74dc19afdd5252c"; // Replace with personal API key
+
     @Override
     public List<String> lookUpLocation(String loc) {
         try {
-            String API_KEY = "cda257269cd8f052e74dc19afdd5252c";
             // Construct the URL with the latitude, longitude, and API key
             String apiUrl = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", loc, API_KEY);
             URL url = new URL(apiUrl);
@@ -55,6 +56,7 @@ public class WeatherService implements iAPI {
 
     }
 
+    /*
     @Override
     public String getCurrentWeather(double lat, double lon) {
         return "sunny";
@@ -64,8 +66,8 @@ public class WeatherService implements iAPI {
     public String getForecast(double lat, double lon) {
         return null;
     }
+    */
 
-    /*
     @Override
     public JsonObject getCurrentWeather(double lat, double lon) {
         try {
@@ -79,7 +81,6 @@ public class WeatherService implements iAPI {
 
             // Read the response
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -90,10 +91,9 @@ public class WeatherService implements iAPI {
 
             // Parse the JSON response using JsonParser
             JsonParser parser = new JsonParser();
-            JsonObject jsonResponse = parser.parse(response.toString()).getAsJsonObject();
 
             // Return the JsonObject
-            return jsonResponse;
+            return parser.parse("").getAsJsonObject();
 
         } catch (IOException e) {
             // Handle exceptions, such as network errors
@@ -133,5 +133,5 @@ public class WeatherService implements iAPI {
                 return null;
             }
         }
-    */
+
 }
