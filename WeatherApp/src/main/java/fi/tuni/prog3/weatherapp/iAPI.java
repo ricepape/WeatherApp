@@ -4,8 +4,6 @@
  */
 package fi.tuni.prog3.weatherapp;
 
-import com.google.gson.JsonObject;
-
 /**
  * Interface for extracting data from the OpenWeatherMap API.
  */
@@ -22,9 +20,9 @@ public interface iAPI {
      * Returns the current weather for the given coordinates.
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
-     * @return String.
+     * @return WeatherModel.
      */
-    public JsonObject getCurrentWeather(double lat, double lon);
+    public WeatherModel getCurrentWeather(double lat, double lon);
 
     /**
      * Returns a forecast for the given coordinates.
@@ -32,5 +30,5 @@ public interface iAPI {
      * @param lon The longitude of the location.
      * @return String.
      */
-    public JsonObject getForecast(double lat, double lon);
+    public String getForecast(double lat, double lon);
 }

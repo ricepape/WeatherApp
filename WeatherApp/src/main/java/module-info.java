@@ -1,7 +1,9 @@
 module fi.tuni.progthree.weatherapp {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     exports fi.tuni.prog3.weatherapp;
-    requires com.google.gson;
     requires javafx.base;
     requires javafx.graphics;
+    requires com.google.gson;
+    requires transitive java.net.http;
+    
 }
