@@ -21,7 +21,6 @@ public class Weather {
         double humidity = json.getAsJsonObject("main").get("humidity").getAsDouble();
         double wind_speed = json.getAsJsonObject("wind").get("speed").getAsDouble();
         double rain_intensity = json.getAsJsonObject("rain").get("1h").getAsDouble();
-
         JsonArray weatherArray = json.getAsJsonArray("weather");
         String weatherDescription = weatherArray.get(0).getAsJsonObject().get("main").getAsString()
                 + " - " + weatherArray.get(0).getAsJsonObject().get("description").getAsString();

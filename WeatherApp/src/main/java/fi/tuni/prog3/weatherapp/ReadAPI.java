@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
  *
  * @author vudinhthi2304
  */
-public class ReadAPI {
+public class ReadAPI implements iAPI {
     private static final String API_KEY = "17bd51fb7bb76a6427811ec042b35080";
     
     /**
