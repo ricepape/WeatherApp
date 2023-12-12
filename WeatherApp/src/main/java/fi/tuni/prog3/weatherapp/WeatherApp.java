@@ -17,6 +17,7 @@ import java.io.IOException;
  * JavaFX Sisu
  */
 public class WeatherApp extends Application {
+    private static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws IOException{
@@ -24,13 +25,13 @@ public class WeatherApp extends Application {
         System.out.println("FXML URL: " + WeatherApp.class.getResource("Main.fxml"));
 
         // Load main FXML and set up scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
-        Parent root = loader.load();
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+        //Parent root = loader.load();
 
         // Set the controller
-        MainWindowController controller = loader.getController();
+        //MainWindowController controller = loader.getController();
 
-        Scene scene = new Scene(root);
+        scene = new Scene(loadFXML("Main"));
         //AnchorPane anchorPane = new AnchorPane();
 
         primaryStage.setTitle("Weather App");
@@ -38,6 +39,15 @@ public class WeatherApp extends Application {
         primaryStage.setScene(scene);
 
         primaryStage.show();
+    }
+
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(WeatherApp.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {

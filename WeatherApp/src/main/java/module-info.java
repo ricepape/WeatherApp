@@ -3,4 +3,5 @@ module fi.tuni.progthree.weatherapp {
     exports fi.tuni.prog3.weatherapp;
     requires com.google.gson;
     requires javafx.fxml;
+    requires java.net.http;
 }

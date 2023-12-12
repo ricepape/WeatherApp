@@ -27,7 +27,7 @@ public class LocationService {
         }
     }
 
-    public String lookUpLocation(String loc){
+    public static String lookUpLocation(String loc){
         try {
             String API_KEY = "Replace with API key";
 

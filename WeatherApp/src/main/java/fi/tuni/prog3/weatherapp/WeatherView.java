@@ -19,11 +19,14 @@ public class WeatherView {
     private Label airQualityLabel;
     private Label rainIntensityLabel;
     private Label windSpeedLabel;
+    private Label errorLabel;
+    //private TextField latitudeInput;
+    //private TextField longitudeInput;
 
     // Default constructor
     public WeatherView(Label temperatureLabel, Label maxTempLabel, Label minTempLabel, ImageView weatherImage, ImageView titleImage,
                        TextField locationInput, Label feelsLikeLabel, Label airQualityLabel, Label rainIntensityLabel,
-                       Label windSpeedLabel) {
+                       Label windSpeedLabel, Label errorLabel) {
         this.temperatureLabel = temperatureLabel;
         this.maxTempLabel = maxTempLabel;
         this.minTempLabel = minTempLabel;
@@ -34,6 +37,10 @@ public class WeatherView {
         this.airQualityLabel = airQualityLabel;
         this.rainIntensityLabel = rainIntensityLabel;
         this.windSpeedLabel = windSpeedLabel;
+        this.errorLabel = errorLabel;
+        
+        //this.latitudeInput = latitudeInput;
+        //this.longitudeInput = longitudeInput;
     }
 
     // Set temperature label
@@ -59,12 +66,16 @@ public class WeatherView {
         Image weatherIconImage = new Image(imageUrl);
         weatherImage.setImage(weatherIconImage);
     }
-    public String getLocationInput() {
-        return locationInput.getText();
-    }
 
     public void setTitleImage(String imageUrl) {
         Image weatherIconImage = new Image(imageUrl);
         titleImage.setImage(weatherIconImage);
+    }
+
+    public void setErrorLabel(String error) {
+        errorLabel.setText(error);
+    }
+
+    public void clearErrorLabel() {
     }
 }
