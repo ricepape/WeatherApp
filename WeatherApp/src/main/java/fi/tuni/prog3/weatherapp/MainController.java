@@ -33,6 +33,7 @@ public class MainController {
         App.setRoot("weather");
     }
     
+    @FXML
     private void Quit() throws IOException {
         Platform.exit();
     }
