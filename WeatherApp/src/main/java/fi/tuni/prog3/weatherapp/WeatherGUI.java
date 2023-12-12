@@ -1,5 +1,6 @@
 package fi.tuni.prog3.weatherapp;
 
+import java.io.IOException;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ public class WeatherGUI {
     private ImageView weatherImage;
     private ImageView titleImage;
     private TextField location;
+    
     
     public WeatherGUI(){
         
@@ -196,8 +198,11 @@ public class WeatherGUI {
     /**
      * Clear errorLabel text
      *
+     * @throws java.io.IOException
      */
-    public void clearErrorLabel() {
-        errorLabel.setText("");
+    public void ReturnToMain() throws IOException {
+        App.setRoot("main");
     }
+    
+    
 }
