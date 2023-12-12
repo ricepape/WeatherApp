@@ -4,6 +4,7 @@
  */
 package fi.tuni.prog3.weatherapp;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 /**
@@ -33,4 +34,6 @@ public interface iAPI {
      * @return String.
      */
     public List<ForecastModel> getForecast(double lat, double lon);
+
+    public static HttpRequest createHttpRequest(String url);
 }
