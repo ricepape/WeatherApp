@@ -70,9 +70,13 @@ public class WeatherController {
     
     public void Search() {
         clearErrorLabel();
-        String city = cityTextField.getText();
-        String state = stateTextField.getText();
-        String country = countryTextField.getText();
+        String in_city = cityTextField.getText();
+        String in_state = stateTextField.getText();
+        String in_country = countryTextField.getText();
+        
+        String city = in_city.replaceAll("\\s", "-");
+        String state = in_state.replaceAll("\\s", "-");
+        String country = in_country.replaceAll("\\s", "-");
     
         if ("".equals(city)) {
             errorLabel.setText("Please enter the city name");
@@ -87,6 +91,10 @@ public class WeatherController {
         }
     
         if (!"".equals(country)) {
+            if (country.length() != 2){
+                errorLabel.setText("Country must be entered with 2-digit code");
+                return;
+            }
             search_string += "," + country;
         }
     
@@ -96,7 +104,8 @@ public class WeatherController {
             errorLabel.setText("No results found");
             return;
         }
-        titleLabel.setText(search_string);
+
+        titleLabel.setText(in_city);
     
         LocationModel locationModel = model.get(0);
         WeatherModel weatherModel = readAPI.getCurrentWeather(locationModel.getLatitude(), locationModel.getLongitude());
@@ -104,14 +113,14 @@ public class WeatherController {
     }
     
     private void updateUI(WeatherModel model) {
-        tempLabel.setText("Temperature: " + model.getTemperature() + "°F");
-        temp_maxLabel.setText("Max temperature: " + model.getMaxTemperature() + "°F");
-        temp_minLabel.setText("Min temperature: " + model.getMinTemperature() + "°F");
-        feels_likeLabel.setText("Feels like: " + model.getFeelsLike() + "°F");
-        pressureLabel.setText("Pressure: " + model.getPressure());
+        tempLabel.setText(Math.floor((model.getTemperature()-273.15) * 100) / 100 + "°C");
+        temp_maxLabel.setText("Max temperature: " + Math.floor((model.getMaxTemperature()-273.15) * 100) / 100 + "°C");
+        temp_minLabel.setText("Min temperature: " + Math.floor((model.getMinTemperature()-273.15) * 100) / 100 + "°C");
+        feels_likeLabel.setText("Feels like: " + Math.floor((model.getFeelsLike()-273.15) * 100) / 100 + "°C");
+        pressureLabel.setText("Pressure: " + model.getPressure()+ "hPa");
         humidityLabel.setText("Humidity: " + model.getHumidity() + "%");
-        wind_speedLabel.setText("Wind Speed: " + model.getWindSpeed() + "%");
-        rain_intensityLabel.setText("Rain Intensity: " + model.getRainIntensity() + "%");
+        wind_speedLabel.setText("Wind Speed: " + model.getWindSpeed() + "m/s");
+        rain_intensityLabel.setText("Rain Intensity: " + model.getRainIntensity() + "mm");
         Image weatherIconImage = new Image("https://openweathermap.org/img/wn/" + model.getIconCode() + "@2x.png");
         weatherImage.setImage(weatherIconImage);
         weather_descriptionLabel.setText(model.getWeatherDescription());

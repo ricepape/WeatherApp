@@ -14,9 +14,9 @@ public class Location {
         List<LocationModel> locationList = new ArrayList<>();
 
         // Parse the JSON response
-        JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
+        // JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            JsonArray listLocationDataReturn = json.getAsJsonArray();
+            JsonArray listLocationDataReturn = JsonParser.parseString(responseBody).getAsJsonArray();
             for (int i = 0; i < listLocationDataReturn.size(); i++) {
                 LocationModel locationModel = new LocationModel();
                 JsonObject dataToJson = listLocationDataReturn.get(i).getAsJsonObject();

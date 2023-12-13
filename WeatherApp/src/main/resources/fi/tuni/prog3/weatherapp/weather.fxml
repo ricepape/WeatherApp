@@ -43,39 +43,39 @@
          </children>
       </FlowPane>
       <Button id="searchButton" fx:id="searchButton" mnemonicParsing="false" onAction="#Search" text="Search" />
-      <ImageView id="weatherImage" fx:id="weatherImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <FlowPane alignment="TOP_CENTER" prefHeight="16.0" prefWidth="577.0">
+         <children>
+            <ImageView id="weatherImage" fx:id="weatherImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Label id="tempLabel" fx:id="tempLabel" prefHeight="135.0" prefWidth="162.0">
+               <font>
+                  <Font name="Century Gothic Bold" size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
       <Label id="titleLabel" fx:id="titleLabel" text="City name">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label text="Weather description">
+      <Label>
          <font>
             <Font name="System Italic" size="15.0" />
          </font>
       </Label>
       <FlowPane alignment="TOP_CENTER" prefHeight="22.0" prefWidth="577.0">
          <children>
-            <Label id="tempLabel" fx:id="tempLabel" prefHeight="17.0" prefWidth="149.0" text="Temperature:">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-            </Label>
-            <Label id="feels_likeLabel" fx:id="feels_likeLabel" prefHeight="16.0" prefWidth="105.0" text="Feels like:">
+            <Label id="temp_maxLabel" fx:id="temp_maxLabel" prefHeight="17.0" prefWidth="220.0" text="Maximum temperature:">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Label>
-         </children>
-      </FlowPane>
-      <FlowPane alignment="TOP_CENTER" prefHeight="22.0" prefWidth="577.0">
-         <children>
-            <Label id="temp_maxLabel" fx:id="temp_maxLabel" prefHeight="17.0" prefWidth="191.0" text="Maximum temperature:">
+            <Label id="feels_likeLabel" fx:id="feels_likeLabel" prefHeight="16.0" prefWidth="168.0" text="Feels like:">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
             </Label>
-            <Label id="temp_minLabel" fx:id="temp_minLabel" prefHeight="16.0" prefWidth="187.0" text="Minimum temperature:">
+            <Label id="temp_minLabel" fx:id="temp_minLabel" prefHeight="16.0" prefWidth="217.0" text="Minimum temperature:">
                <font>
                   <Font name="Century Gothic" size="13.0" />
                </font>
@@ -107,5 +107,6 @@
          </children>
       </FlowPane>
       <Button id="returnButton" fx:id="returnButton" mnemonicParsing="false" onAction="#returnToMain" text="Return to Main Menu" />
+      <FlowPane alignment="TOP_CENTER" prefHeight="22.0" prefWidth="577.0" />
    </children>
 </VBox>

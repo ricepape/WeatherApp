@@ -18,7 +18,7 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Button id="mainWeatherButton" fx:id="mainWeatherButton" onAction="#SwitchToWeather" onDragEntered="#SwitchToWeather" onMouseDragEntered="#SwitchToWeather" onMouseEntered="#SwitchToWeather" onMousePressed="#SwitchToWeather" onTouchPressed="#SwitchToWeather" text="Current Weather Information" />
+      <Button id="mainWeatherButton" fx:id="mainWeatherButton" onAction="#SwitchToWeather" onMouseClicked="#SwitchToWeather" onTouchPressed="#SwitchToWeather" text="Current Weather Information" />
       <Button id="mainForecastButton" fx:id="mainForecastButton" onAction="#SwitchToForecast" onMouseClicked="#SwitchToForecast" onMouseDragEntered="#SwitchToForecast" onMouseDragReleased="#SwitchToForecast" onTouchPressed="#SwitchToForecast" prefHeight="25.0" prefWidth="172.0" text="Forecast Information" />
       <Button id="mainQuitButton" fx:id="mainQuitButton" onAction="#Quit" prefHeight="25.0" prefWidth="172.0" text="Quit" />
    </children>
