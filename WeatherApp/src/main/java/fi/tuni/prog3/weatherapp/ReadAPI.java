@@ -43,7 +43,7 @@ public class ReadAPI implements iAPI {
      * @param loc Name of the location for which coordinates should be fetched.
      * @return String.
      */
-    public static List<LocationModel> lookUpLocation(String loc){
+    public List<LocationModel> lookUpLocation(String loc){
         String apiUrl = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", loc, API_KEY);
         HttpRequest request = createHttpRequest(apiUrl);
 
