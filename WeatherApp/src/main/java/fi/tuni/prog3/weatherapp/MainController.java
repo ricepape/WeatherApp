@@ -5,9 +5,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class MainController {
 
+    @FXML
+    private VBox mainVBox;
+    
     @FXML
     private Label maintitleLabel;
     
@@ -24,12 +28,12 @@ public class MainController {
     private Button mainQuitButton;
     
     @FXML
-    private void SwitchToForecast () throws IOException {
+    private void SwitchToForecast() throws IOException {
         App.setRoot("forecast");
     }
     
     @FXML
-    private void SwitchToWeather () throws IOException {
+    private void SwitchToWeather() throws IOException {
         App.setRoot("weather");
     }
     

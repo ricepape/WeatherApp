@@ -14,29 +14,54 @@ public class WeatherController {
 
     @FXML
     private Label tempLabel;
+
+    @FXML
     private Label temp_maxLabel;
+
+    @FXML
     private Label temp_minLabel;
+
+    @FXML
     private Label feels_likeLabel;
+
+    @FXML
     private Label pressureLabel;
+
+    @FXML
     private Label humidityLabel;
+
+    @FXML
     private Label weather_descriptionLabel;
+
+    @FXML
     private Label wind_speedLabel;
+
+    @FXML
     private Label rain_intensityLabel;
+
+    @FXML
     private Label errorLabel;
+
+    @FXML
     private ImageView weatherImage;
-    private ImageView titleImage;
-    private Label searchLabel;
-    private Label cityLabel;
-    private Label stateLabel;
-    private Label countryLabel;
-    private TextField cityTextField;
-    private TextField stateTextField;
-    private TextField countryTextField;
+
+    @FXML
+    private Label titleLabel;
+
+    @FXML
     private Button searchButton;
-    private Button returnButton;
+
+    @FXML
+    private TextField cityTextField;
+
+    @FXML
+    private TextField stateTextField;
+
+    @FXML
+    private TextField countryTextField;
 
     public void clearErrorLabel() {
-        errorLabel.setText("");
+        errorLabel.setText("Search for the weather your favourite place here!");
     }
     
     public void returnToMain() throws IOException {
@@ -67,10 +92,11 @@ public class WeatherController {
     
         List<LocationModel> model = readAPI.lookUpLocation(search_string);
     
-        if (model.size() == 0) {
+        if (model.isEmpty()) {
             errorLabel.setText("No results found");
             return;
         }
+        titleLabel.setText(search_string);
     
         LocationModel locationModel = model.get(0);
         WeatherModel weatherModel = readAPI.getCurrentWeather(locationModel.getLatitude(), locationModel.getLongitude());
@@ -84,8 +110,8 @@ public class WeatherController {
         feels_likeLabel.setText("Feels like: " + model.getFeelsLike() + "°F");
         pressureLabel.setText("Pressure: " + model.getPressure());
         humidityLabel.setText("Humidity: " + model.getHumidity() + "%");
-        wind_speedLabel.setText("Humidity: " + model.getWindSpeed() + "%");
-        rain_intensityLabel.setText("Humidity: " + model.getRainIntensity() + "%");
+        wind_speedLabel.setText("Wind Speed: " + model.getWindSpeed() + "%");
+        rain_intensityLabel.setText("Rain Intensity: " + model.getRainIntensity() + "%");
         Image weatherIconImage = new Image("https://openweathermap.org/img/wn/" + model.getIconCode() + "@2x.png");
         weatherImage.setImage(weatherIconImage);
         weather_descriptionLabel.setText(model.getWeatherDescription());
