@@ -1,34 +1,34 @@
 package fi.tuni.prog3.weatherapp;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Location {
-    private String cityName;
-    private String country;
-    private double lat;
-    private double lon;
+    public static List<LocationModel> fetchLocationData(HttpResponse<String> response) {
+       
+        String responseBody = response.body();
+        List<LocationModel> locationList = new ArrayList<>();
 
-    public Location(String cityName, String country, double lat, double lon) {
-        this.cityName = cityName;
-        this.country = country;
-        this.lat = lat;
-        this.lon = lon;
+        // Parse the JSON response
+        JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
+
+            JsonArray listLocationDataReturn = json.getAsJsonArray();
+            for (int i = 0; i < listLocationDataReturn.size(); i++) {
+                LocationModel locationModel = new LocationModel();
+                JsonObject dataToJson = listLocationDataReturn.get(i).getAsJsonObject();
+                String name = dataToJson.get("name").getAsString();
+                double lat = dataToJson.get("lat").getAsDouble();
+                double lon = dataToJson.get("lon").getAsDouble();
+                String country = dataToJson.get("country").getAsString();
+                locationModel = new LocationModel(name, lat, lon, country); 
+                locationList.add(locationModel);
+        }
+        return locationList;
     }
-
-    // Getter methods
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
+    
+    
 }

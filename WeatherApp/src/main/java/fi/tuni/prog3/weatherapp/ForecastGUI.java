@@ -1,4 +1,4 @@
 package fi.tuni.prog3.weatherapp;
 
-public class APIHourlyForecastData {
+public class ForecastGUI {
 }

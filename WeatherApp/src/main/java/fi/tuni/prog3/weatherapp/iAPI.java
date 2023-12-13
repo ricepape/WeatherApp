@@ -4,8 +4,7 @@
  */
 package fi.tuni.prog3.weatherapp;
 
-import com.google.gson.JsonObject;
-
+import java.net.http.HttpRequest;
 import java.util.List;
 
 /**
@@ -16,17 +15,17 @@ public interface iAPI {
     /**
      * Returns coordinates for a location.
      * @param loc Name of the location for which coordinates should be fetched.
-     * @return List of String: latitude and longitude.
+     * @return String.
      */
-    public List<String> lookUpLocation(String loc);
+    public List<LocationModel> lookUpLocation(String loc);
     
     /**
      * Returns the current weather for the given coordinates.
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
-     * @return String.
+     * @return WeatherModel.
      */
-    public JsonObject getCurrentWeather(double lat, double lon);
+    public WeatherModel getCurrentWeather(double lat, double lon);
 
     /**
      * Returns a forecast for the given coordinates.
@@ -34,5 +33,6 @@ public interface iAPI {
      * @param lon The longitude of the location.
      * @return String.
      */
-    public JsonObject getForecast(double lat, double lon);
+    public List<ForecastModel> getForecast(double lat, double lon);
+
 }
