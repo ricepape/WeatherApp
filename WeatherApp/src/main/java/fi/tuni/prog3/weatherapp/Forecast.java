@@ -11,7 +11,6 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -56,15 +55,25 @@ public class Forecast {
 
 
         } else {
-            // handling error properly
+            // Handling error properly
         }
         return ForecastList;
     }
 
-    private static double convertTemp(double temp) {
-        return Math.floor((temp - 273.15) * 100) / 100;
+    /**
+     * Converting temperature from kelvin to celsius
+     * @param temperature in celsius
+     * @return double
+     */
+    private static double convertTemp(double temperature) {
+        return Math.floor((temperature - 273.15) * 100) / 100;
     }
 
+    /**
+     * Fetching weather icon from code input
+     * @param iconCode in String
+     * @return ImageView
+     */
     private static ImageView weatherImage(String iconCode) {
         return new ImageView("https://openweathermap.org/img/wn/" + iconCode + "@2x.png");
     }

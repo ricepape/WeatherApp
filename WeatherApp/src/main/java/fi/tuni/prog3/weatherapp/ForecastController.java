@@ -3,14 +3,11 @@ package fi.tuni.prog3.weatherapp;
 import java.io.IOException;
 import java.util.List;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 public class ForecastController {
     @FXML
@@ -40,12 +37,6 @@ public class ForecastController {
     
     @FXML
     private Label errorLabel;
-    
-    @FXML
-    private ImageView weatherImage;
-    
-    @FXML
-    private ImageView titleImage;
     
     @FXML
     private TextField cityTextField;
@@ -129,12 +120,20 @@ public class ForecastController {
         }
 
     }
-    
+
+    /**
+     * Update the forecast of upcoming days
+     * @param model ForecastModel
+     */
     private void updateUIDaily(ForecastModel model) {
 
         dailyForecastTable.getItems().add(model); // Add to daily forecast table
     }
 
+    /**
+     * Update the forecast of upcoming hours
+     * @param model ForecastModel
+     */
     private void updateUIHourly(ForecastModel model) {
         hourlyForecastTable.getItems().add(model); // Add to hourly forecast table
     }
@@ -148,22 +147,22 @@ public class ForecastController {
         hourColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
 
         TableColumn<ForecastModel, String> tempColumn = new TableColumn<>("Temperature");
-        tempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getTemperature())));
+        tempColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTemperature() + "°C"));
 
         TableColumn<ForecastModel, String> maxTempColumn = new TableColumn<>("Max Temperature");
-        maxTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMaxTemperature())));
+        maxTempColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMaxTemperature() + "°C"));
 
         TableColumn<ForecastModel, String> minTempColumn = new TableColumn<>("Min Temperature");
-        minTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMinTemperature())));
+        minTempColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMinTemperature() + "°C"));
 
         TableColumn<ForecastModel, String> feelsLikeTempColumn = new TableColumn<>("Feels Like Temperature");
-        feelsLikeTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getFeelsLike())));
+        feelsLikeTempColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFeelsLike() + "°C"));
 
         TableColumn<ForecastModel, String> humidityColumn = new TableColumn<>("Humidity");
-        humidityColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getHumidity())));
+        humidityColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getHumidity() + "%"));
 
         TableColumn<ForecastModel, String> windSpeedColumn = new TableColumn<>("Wind Speed");
-        windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getWindSpeed())));
+        windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWindSpeed() + "%"));
 
         TableColumn<ForecastModel, ImageView> weatherImageHourlyColumn = new TableColumn<>("Image");
         weatherImageHourlyColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getWeatherImage()));
@@ -174,7 +173,8 @@ public class ForecastController {
         hourlyForecastTable.getColumns().clear();
         dailyForecastTable.getColumns().clear();
 
-        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, feelsLikeTempColumn, humidityColumn, windSpeedColumn, weatherImageHourlyColumn);
+        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, feelsLikeTempColumn, humidityColumn,
+                windSpeedColumn, weatherImageHourlyColumn);
         dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn, weatherImageDailyColumn);
     }
     
