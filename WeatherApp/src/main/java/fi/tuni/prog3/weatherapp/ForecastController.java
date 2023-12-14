@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,6 +33,10 @@ public class ForecastController {
     public TableColumn humidityColumn;
     @FXML
     public TableColumn windSpeedColumn;
+    @FXML
+    public TableColumn weatherImageDailyColumn;
+    @FXML
+    public TableColumn weatherImageHourlyColumn;
     
     @FXML
     private Label errorLabel;
@@ -126,6 +131,7 @@ public class ForecastController {
     }
     
     private void updateUIDaily(ForecastModel model) {
+
         dailyForecastTable.getItems().add(model); // Add to daily forecast table
     }
 
@@ -159,11 +165,17 @@ public class ForecastController {
         TableColumn<ForecastModel, String> windSpeedColumn = new TableColumn<>("Wind Speed");
         windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getWindSpeed())));
 
+        TableColumn<ForecastModel, ImageView> weatherImageHourlyColumn = new TableColumn<>("Image");
+        weatherImageHourlyColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getWeatherImage()));
+
+        TableColumn<ForecastModel, ImageView> weatherImageDailyColumn = new TableColumn<>("Image");
+        weatherImageDailyColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getWeatherImage()));
+
         hourlyForecastTable.getColumns().clear();
         dailyForecastTable.getColumns().clear();
 
-        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
-        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
+        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, feelsLikeTempColumn, humidityColumn, windSpeedColumn, weatherImageHourlyColumn);
+        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn, weatherImageDailyColumn);
     }
     
 }

@@ -11,6 +11,8 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -45,8 +47,10 @@ public class Forecast {
                 double windSpeed = dataToJson.getAsJsonObject("wind").get("speed").getAsDouble();
                 String sysPod = dataToJson.getAsJsonObject("sys").get("pod").getAsString();
                 String dtTxt = dataToJson.get("dt_txt").getAsString();
+                ImageView weatherImage = weatherImage(weatherIcon);
 
-                model = new ForecastModel(dt, temp, feels_like, temp_min, temp_max, pressure, humidity, weatherId, weatherMain, weatherDescription, weatherIcon, cloudsAll, windSpeed, sysPod, dtTxt);
+                model = new ForecastModel(dt, temp, feels_like, temp_min, temp_max, pressure, humidity, weatherId,
+                        weatherMain, weatherDescription, weatherIcon, cloudsAll, windSpeed, sysPod, dtTxt, weatherImage);
                 ForecastList.add(model);
             }
 
@@ -59,6 +63,10 @@ public class Forecast {
 
     private static double convertTemp(double temp) {
         return Math.floor((temp - 273.15) * 100) / 100;
+    }
+
+    private static ImageView weatherImage(String iconCode) {
+        return new ImageView("https://openweathermap.org/img/wn/" + iconCode + "@2x.png");
     }
 
 }

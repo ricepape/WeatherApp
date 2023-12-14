@@ -58,6 +58,7 @@
                                 <TableColumn text="Feels like" fx:id="feelsLikeColumn"/>
                                 <TableColumn text="Humidity" fx:id="humidityColumn"/>
                                 <TableColumn text="Wind speed" fx:id="windSpeedColumn"/>
+                                <TableColumn text="Image" fx:id="weatherImageHourlyColumn"/>
                             </columns>
                         </TableView>
                     </VBox>
@@ -69,6 +70,7 @@
                                 <TableColumn text="Date" fx:id="dateColumn"/>
                                 <TableColumn text="Max Temperature" fx:id="maxTempColumn"/>
                                 <TableColumn text="Min Temperature" fx:id="minTempColumn"/>
+                                <TableColumn text="Image" fx:id="weatherImageDailyColumn"/>
                             </columns>
                         </TableView>
                     </VBox>
