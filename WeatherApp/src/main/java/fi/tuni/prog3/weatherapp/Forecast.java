@@ -18,13 +18,14 @@ import com.google.gson.JsonParser;
  */
 public class Forecast {
     public static List<ForecastModel> fetchForecastData(HttpResponse<String> response) {
-       String responseBody = response.body();
-       List<ForecastModel> ForecastList = new ArrayList<>();
-       JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
+        List<ForecastModel> ForecastList = new ArrayList<>();
+        String responseBody = response.body();
+        JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
-       JsonArray listForecastDataReturn = json.getAsJsonArray("list");
+        JsonArray listForecastDataReturn = json.getAsJsonArray("list");
+        if (listForecastDataReturn != null) {
             for (int i = 0; i < listForecastDataReturn.size(); i++) {
-                ForecastModel model = new ForecastModel();
+                ForecastModel model;
                 JsonObject dataToJson = listForecastDataReturn.get(i).getAsJsonObject();
                 int dt = dataToJson.get("dt").getAsInt();
                 JsonObject main = dataToJson.getAsJsonObject("main");
@@ -44,12 +45,17 @@ public class Forecast {
                 double windSpeed = dataToJson.getAsJsonObject("wind").get("speed").getAsDouble();
                 String sysPod = dataToJson.getAsJsonObject("sys").get("pod").getAsString();
                 String dtTxt = dataToJson.get("dt_txt").getAsString();
+
                 model = new ForecastModel(dt, temp, feels_like, temp_min, temp_max, pressure, humidity, weatherId, weatherMain, weatherDescription, weatherIcon, cloudsAll, windSpeed, sysPod, dtTxt);
                 ForecastList.add(model);
+            }
+
+
+        } else {
+            // handling error properly
         }
         return ForecastList;
-
-      }
-
     }
 
+
+}

@@ -3,41 +3,35 @@ package fi.tuni.prog3.weatherapp;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class ForecastController {
     @FXML
-    private Label tempLabel;
-    
+    private TableView<ForecastModel> hourlyForecastTable;
     @FXML
-    private Label temp_maxLabel;
-    
+    private TableView<ForecastModel> dailyForecastTable;
     @FXML
-    private Label temp_minLabel;
-    
+    public TableColumn hourColumn;
     @FXML
-    private Label feels_likeLabel;
-    
+    public TableColumn tempColumn;
     @FXML
-    private Label pressureLabel;
-    
+    public TableColumn dateColumn;
     @FXML
-    private Label humidityLabel;
-    
+    public TableColumn maxTempColumn;
     @FXML
-    private Label weather_descriptionLabel;
-    
+    public TableColumn minTempColumn;
     @FXML
-    private Label wind_speedLabel;
-    
+    public TableColumn feelsLikeColumn;
     @FXML
-    private Label rain_intensityLabel;
+    public TableColumn humidityColumn;
+    @FXML
+    public TableColumn windSpeedColumn;
     
     @FXML
     private Label errorLabel;
@@ -47,18 +41,6 @@ public class ForecastController {
     
     @FXML
     private ImageView titleImage;
-    
-    @FXML
-    private Label searchLabel;
-    
-    @FXML
-    private Label cityLabel;
-    
-    @FXML
-    private Label stateLabel;
-    
-    @FXML
-    private Label countryLabel;
     
     @FXML
     private TextField cityTextField;
@@ -75,51 +57,8 @@ public class ForecastController {
     @FXML
     private Button returnButton;
     
-    @FXML
-    private VBox hourlyForecastVBox;
-    
-    @FXML
-    private VBox dailyForecastVBox;
-    
-    @FXML
-    private Label dtTxtLabel;
-    
     public ForecastController(){
     }
-
-    /**
-     * Default constructor for WeatherController
-     * @param tempLabel
-     * @param temp_maxLabel
-     * @param temp_minLabel
-     * @param feels_likeLabel
-     * @param pressureLabel
-     * @param humidityLabel
-     * @param weather_descriptionLabel
-     * @param wind_speedLabel
-     * @param rain_intensityLabel
-     * @param weatherImage
-     * @param titleImage
-     */
-    public ForecastController (Label tempLabel, Label temp_maxLabel, Label temp_minLabel,
-            Label feels_likeLabel, Label pressureLabel, Label humidityLabel,
-            Label weather_descriptionLabel, Label wind_speedLabel,
-            Label rain_intensityLabel, ImageView weatherImage,
-            ImageView titleImage, Label dtTxtLabel) {
-        this.tempLabel = tempLabel;
-        this.temp_maxLabel = temp_maxLabel;
-        this.temp_minLabel = temp_minLabel;
-        this.feels_likeLabel = feels_likeLabel;
-        this.pressureLabel = pressureLabel;
-        this.humidityLabel = humidityLabel;
-        this.wind_speedLabel = wind_speedLabel;
-        this.rain_intensityLabel = rain_intensityLabel;
-        this.weather_descriptionLabel = weather_descriptionLabel;
-        this.weatherImage = weatherImage;
-        this.titleImage = titleImage;
-        this.dtTxtLabel = dtTxtLabel;
-    }
-    
 
     public void clearErrorLabel() {
         errorLabel.setText("");
@@ -168,21 +107,59 @@ public class ForecastController {
     
         LocationModel locationModel = model.get(0);
         List<ForecastModel> forecastModels = readAPI.getForecast(locationModel.getLatitude(), locationModel.getLongitude());
+
+        if (forecastModels.isEmpty()) {
+            errorLabel.setText("No forecast data found");
+            return;
+        }
+
+        initialize();
+
+        //hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
+        //dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
+
         for (ForecastModel forecastModel: forecastModels){
-            ForecastController forecastController = new ForecastController();
-            forecastController.tempLabel.setText("Temperature: " + forecastModel.getTemperature() + "°F");
-            forecastController.temp_maxLabel.setText("Max temperature: " + forecastModel.getMaxTemperature() + "°F");
-            forecastController.temp_minLabel.setText("Min temperature: " + forecastModel.getMinTemperature() + "°F");
-            forecastController.feels_likeLabel.setText("Feels like: " + forecastModel.getFeelsLike() + "°F");
-            forecastController.pressureLabel.setText("Pressure: " + forecastModel.getPressure());
-            forecastController.humidityLabel.setText("Humidity: " + forecastModel.getHumidity() + "%");
-            forecastController.wind_speedLabel.setText(": " + forecastModel.getWindSpeed() + "%");
-            Image weatherIconImage = new Image("https://openweathermap.org/img/wn/" + forecastModel.getIconCode() + "@2x.png");
-            forecastController.weatherImage.setImage(weatherIconImage);
-            forecastController.weather_descriptionLabel.setText(forecastModel.getWeatherDescription());
-            forecastController.dtTxtLabel.setText(forecastModel.getDtTxt());
-            forecastController.rain_intensityLabel.setText("Rain intensity: " + forecastModel.getRainIntensity());
-            hourlyForecastVBox.getChildren().add(forecastController);
+            updateUI(forecastModel);
         }
     }
+    
+    private void updateUI(ForecastModel model) {
+        // Update the tables
+        hourlyForecastTable.getItems().add(model); // Add to hourly forecast table
+        dailyForecastTable.getItems().add(model); // Add to daily forecast table
+    }
+
+    private void initialize() {
+        // Initialize columns for forecast table
+        TableColumn<ForecastModel, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
+
+        TableColumn<ForecastModel, Integer> hourColumn = new TableColumn<>("Hour");
+        hourColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getDt()).asObject());
+
+        TableColumn<ForecastModel, String> tempColumn = new TableColumn<>("Temperature");
+        tempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getTemperature())));
+
+        TableColumn<ForecastModel, String> maxTempColumn = new TableColumn<>("Max Temperature");
+        maxTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMaxTemperature())));
+
+        TableColumn<ForecastModel, String> minTempColumn = new TableColumn<>("Min Temperature");
+        minTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMinTemperature())));
+
+        TableColumn<ForecastModel, String> feelsLikeTempColumn = new TableColumn<>("Feels Like Temperature");
+        feelsLikeTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getFeelsLike())));
+
+        TableColumn<ForecastModel, String> humidityColumn = new TableColumn<>("Humidity");
+        humidityColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getHumidity())));
+
+        TableColumn<ForecastModel, String> windSpeedColumn = new TableColumn<>("Wind Speed");
+        windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getWindSpeed())));
+
+        hourlyForecastTable.getColumns().clear();
+        dailyForecastTable.getColumns().clear();
+
+        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
+        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
+    }
+    
 }
