@@ -125,12 +125,4 @@ public class WeatherController {
         weatherImage.setImage(weatherIconImage);
         weather_descriptionLabel.setText(model.getWeatherDescription());
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }

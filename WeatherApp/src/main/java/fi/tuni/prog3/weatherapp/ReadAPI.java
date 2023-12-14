@@ -64,7 +64,7 @@ public class ReadAPI implements iAPI {
     }
 
     public List<ForecastModel> getForecast(double lat, double lon){
-        String apiUrl = String.format("https://api.openweathermap.org/data/2.5/forecast.hourly?lat=%f&lon=%f&appid=%s", lat, lon, API_KEY);
+        String apiUrl = String.format("https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s", lat, lon, API_KEY);
         HttpRequest request = createHttpRequest(apiUrl);
 
         try {

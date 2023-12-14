@@ -60,22 +60,6 @@ public class ForecastController {
     public ForecastController(){
     }
 
-    public ForecastController (TableView<ForecastModel> hourlyForecastTable, TableView<ForecastModel> dailyForecastTable,
-                               TableColumn hourColumn, TableColumn tempColumn, TableColumn maxTempColumn,
-                               TableColumn minTempColumn, TableColumn windSpeedColumn, TableColumn humidityColumn,
-                               ImageView weatherImage, ImageView titleImage) {
-        this.hourlyForecastTable = hourlyForecastTable;
-        this.dailyForecastTable = dailyForecastTable;
-        this.hourColumn = hourColumn;
-        this.tempColumn = tempColumn;
-        this.maxTempColumn = maxTempColumn;
-        this.minTempColumn = minTempColumn;
-        this.windSpeedColumn = windSpeedColumn;
-        this.humidityColumn = humidityColumn;
-        this.weatherImage = weatherImage;
-        this.titleImage = titleImage;
-
-    }
     public void clearErrorLabel() {
         errorLabel.setText("");
     }
@@ -124,10 +108,15 @@ public class ForecastController {
         LocationModel locationModel = model.get(0);
         List<ForecastModel> forecastModels = readAPI.getForecast(locationModel.getLatitude(), locationModel.getLongitude());
 
+        if (forecastModels.isEmpty()) {
+            errorLabel.setText("No forecast data found");
+            return;
+        }
+
         initialize();
 
-        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
-        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
+        //hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
+        //dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
 
         for (ForecastModel forecastModel: forecastModels){
             updateUI(forecastModel);
@@ -166,6 +155,11 @@ public class ForecastController {
         TableColumn<ForecastModel, String> windSpeedColumn = new TableColumn<>("Wind Speed");
         windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getWindSpeed())));
 
+        hourlyForecastTable.getColumns().clear();
+        dailyForecastTable.getColumns().clear();
+
+        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
+        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
     }
     
 }
