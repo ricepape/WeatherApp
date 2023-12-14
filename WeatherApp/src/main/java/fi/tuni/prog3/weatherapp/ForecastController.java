@@ -115,9 +115,6 @@ public class ForecastController {
 
         initialize();
 
-        //hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
-        //dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
-
         for (ForecastModel forecastModel: forecastModels){
             updateUI(forecastModel);
         }

@@ -29,10 +29,10 @@ public class Forecast {
                 JsonObject dataToJson = listForecastDataReturn.get(i).getAsJsonObject();
                 int dt = dataToJson.get("dt").getAsInt();
                 JsonObject main = dataToJson.getAsJsonObject("main");
-                double temp = main.get("temp").getAsDouble();
-                double feels_like = main.get("feels_like").getAsDouble();
-                double temp_min = main.get("temp_min").getAsDouble();
-                double temp_max = main.get("temp_max").getAsDouble();
+                double temp = convertTemp(main.get("temp").getAsDouble());
+                double feels_like = convertTemp(main.get("feels_like").getAsDouble());
+                double temp_min = convertTemp(main.get("temp_min").getAsDouble());
+                double temp_max = convertTemp(main.get("temp_max").getAsDouble());
                 double pressure = main.get("pressure").getAsDouble();
                 double humidity = main.get("humidity").getAsDouble();
                 JsonArray weatherArray = dataToJson.getAsJsonArray("weather");
@@ -57,5 +57,8 @@ public class Forecast {
         return ForecastList;
     }
 
+    private static double convertTemp(double temp) {
+        return Math.floor((temp - 273.15) * 100) / 100;
+    }
 
 }
