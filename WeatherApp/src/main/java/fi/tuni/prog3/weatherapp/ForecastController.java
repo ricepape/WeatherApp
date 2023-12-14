@@ -116,14 +116,21 @@ public class ForecastController {
         initialize();
 
         for (ForecastModel forecastModel: forecastModels){
-            updateUI(forecastModel);
+            updateUIHourly(forecastModel);
         }
+
+        for (int i = 0; i < forecastModels.size(); i+=24) {
+            updateUIDaily(forecastModels.get(i));
+        }
+
     }
     
-    private void updateUI(ForecastModel model) {
-        // Update the tables
-        hourlyForecastTable.getItems().add(model); // Add to hourly forecast table
+    private void updateUIDaily(ForecastModel model) {
         dailyForecastTable.getItems().add(model); // Add to daily forecast table
+    }
+
+    private void updateUIHourly(ForecastModel model) {
+        hourlyForecastTable.getItems().add(model); // Add to hourly forecast table
     }
 
     private void initialize() {
@@ -131,8 +138,8 @@ public class ForecastController {
         TableColumn<ForecastModel, String> dateColumn = new TableColumn<>("Date");
         dateColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
 
-        TableColumn<ForecastModel, Integer> hourColumn = new TableColumn<>("Hour");
-        hourColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getDt()).asObject());
+        TableColumn<ForecastModel, String> hourColumn = new TableColumn<>("Hour");
+        hourColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
 
         TableColumn<ForecastModel, String> tempColumn = new TableColumn<>("Temperature");
         tempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getTemperature())));
