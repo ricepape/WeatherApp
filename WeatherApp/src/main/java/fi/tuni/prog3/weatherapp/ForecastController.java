@@ -119,6 +119,8 @@ public class ForecastController {
         this.titleImage = titleImage;
         this.dtTxtLabel = dtTxtLabel;
     }
+    
+
     public void clearErrorLabel() {
         errorLabel.setText("");
     }
@@ -167,21 +169,20 @@ public class ForecastController {
         LocationModel locationModel = model.get(0);
         List<ForecastModel> forecastModels = readAPI.getForecast(locationModel.getLatitude(), locationModel.getLongitude());
         for (ForecastModel forecastModel: forecastModels){
-            updateUI(forecastModel);
+            ForecastController forecastController = new ForecastController();
+            forecastController.tempLabel.setText("Temperature: " + forecastModel.getTemperature() + "°F");
+            forecastController.temp_maxLabel.setText("Max temperature: " + forecastModel.getMaxTemperature() + "°F");
+            forecastController.temp_minLabel.setText("Min temperature: " + forecastModel.getMinTemperature() + "°F");
+            forecastController.feels_likeLabel.setText("Feels like: " + forecastModel.getFeelsLike() + "°F");
+            forecastController.pressureLabel.setText("Pressure: " + forecastModel.getPressure());
+            forecastController.humidityLabel.setText("Humidity: " + forecastModel.getHumidity() + "%");
+            forecastController.wind_speedLabel.setText(": " + forecastModel.getWindSpeed() + "%");
+            Image weatherIconImage = new Image("https://openweathermap.org/img/wn/" + forecastModel.getIconCode() + "@2x.png");
+            forecastController.weatherImage.setImage(weatherIconImage);
+            forecastController.weather_descriptionLabel.setText(forecastModel.getWeatherDescription());
+            forecastController.dtTxtLabel.setText(forecastModel.getDtTxt());
+            forecastController.rain_intensityLabel.setText("Rain intensity: " + forecastModel.getRainIntensity());
+            hourlyForecastVBox.getChildren().add(forecastController);
         }
     }
-    
-    private void updateUI(ForecastModel model) {
-        tempLabel.setText("Temperature: " + model.getTemperature() + "°F");
-        temp_maxLabel.setText("Max temperature: " + model.getMaxTemperature() + "°F");
-        temp_minLabel.setText("Min temperature: " + model.getMinTemperature() + "°F");
-        feels_likeLabel.setText("Feels like: " + model.getFeelsLike() + "°F");
-        pressureLabel.setText("Pressure: " + model.getPressure());
-        humidityLabel.setText("Humidity: " + model.getHumidity() + "%");
-        wind_speedLabel.setText(": " + model.getWindSpeed() + "%");
-        Image weatherIconImage = new Image("https://openweathermap.org/img/wn/" + model.getIconCode() + "@2x.png");
-        weatherImage.setImage(weatherIconImage);
-        weather_descriptionLabel.setText(model.getWeatherDescription());
-    }
-    
 }
