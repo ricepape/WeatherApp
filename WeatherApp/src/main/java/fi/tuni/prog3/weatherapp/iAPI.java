@@ -4,7 +4,6 @@
  */
 package fi.tuni.prog3.weatherapp;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 
 /**
