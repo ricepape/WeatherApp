@@ -9,5 +9,8 @@
         <module name="WeatherApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="WeatherApp" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

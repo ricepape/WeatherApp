@@ -34,5 +34,4 @@ public interface iAPI {
      * @return String.
      */
     public List<ForecastModel> getForecast(double lat, double lon);
-
 }

@@ -20,12 +20,18 @@ public class Weather {
         double pressure = json.getAsJsonObject("main").get("pressure").getAsDouble();
         double humidity = json.getAsJsonObject("main").get("humidity").getAsDouble();
         double wind_speed = json.getAsJsonObject("wind").get("speed").getAsDouble();
-        double rain_intensity = json.getAsJsonObject("rain").get("1h").getAsDouble();
+        // Check if "rain" is present in the first entry
+        double rain_intensity = 0.0; // Default value if "rain" is not present
+        if (json.has("rain") && json.getAsJsonObject("rain").has("1h")) {
+            rain_intensity = json.getAsJsonObject("rain").get("1h").getAsDouble();
+        }
         JsonArray weatherArray = json.getAsJsonArray("weather");
         String weatherDescription = weatherArray.get(0).getAsJsonObject().get("main").getAsString()
                 + " - " + weatherArray.get(0).getAsJsonObject().get("description").getAsString();
-        String iconCode = weatherArray.get(0).getAsJsonObject().get("icon").getAsString();
-
+        String iconCode = "02d";
+        if (weatherArray.get(0).getAsJsonObject().has("icon")) {
+            iconCode = weatherArray.get(0).getAsJsonObject().get("icon").getAsString();
+        }
         weatherModel = new WeatherModel(temp, temp_max, temp_min, feels_like, humidity, pressure, wind_speed, rain_intensity, weatherDescription,
                 iconCode);
 

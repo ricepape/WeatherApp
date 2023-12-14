@@ -68,19 +68,19 @@ public class ForecastModel {
         this.feelsLike = feelsLike;
     }
 
-    public double getTempMin() {
+    public double getMinTemperature() {
         return tempMin;
     }
 
-    public void setTempMin(double tempMin) {
+    public void setMinTemperature(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public double getTempMax() {
+    public double getMaxTemperature() {
         return tempMax;
     }
 
-    public void setTempMax(double tempMax) {
+    public void setMaxTemperature(double tempMax) {
         this.tempMax = tempMax;
     }
 
@@ -124,7 +124,7 @@ public class ForecastModel {
         this.weatherDescription = weatherDescription;
     }
 
-    public String getWeatherIcon() {
+    public String getIconCode() {
         return weatherIcon;
     }
 
