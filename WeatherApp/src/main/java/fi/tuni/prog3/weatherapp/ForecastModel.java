@@ -4,6 +4,13 @@
  */
 package fi.tuni.prog3.weatherapp;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+/**
+ * author: Anh Tran, Thi Vu
+ */
+
 // Make a class for saving all the json component above
 public class ForecastModel {
     private int dt;
@@ -21,13 +28,14 @@ public class ForecastModel {
     private double windSpeed;
     private String sysPod;
     private String dtTxt;
+    private ImageView weatherImage;
 
     public ForecastModel(){}
 
     public ForecastModel(int dt, double temperature, double feelsLike,
-            double tempMin, double tempMax, double pressure, double humidity,
-            int weatherId, String weatherMain, String weatherDescription, String weatherIcon,
-            double cloudsAll, double windSpeed, String sysPod, String dtTxt) {
+                         double tempMin, double tempMax, double pressure, double humidity,
+                         int weatherId, String weatherMain, String weatherDescription, String weatherIcon,
+                         double cloudsAll, double windSpeed, String sysPod, String dtTxt, ImageView weatherImage) {
         this.dt = dt;
         this.temperature = temperature;
         this.feelsLike = feelsLike;
@@ -43,6 +51,7 @@ public class ForecastModel {
         this.windSpeed = windSpeed;
         this.sysPod = sysPod;
         this.dtTxt = dtTxt;
+        this.weatherImage = weatherImage;
     }
     public int getDt() {
         return dt;
@@ -164,7 +173,7 @@ public class ForecastModel {
         this.dtTxt = dtTxt;
     }
 
-
+    public ImageView getWeatherImage() {return weatherImage;}
 
 
 }

@@ -11,14 +11,14 @@ import java.util.List;
  * Interface for extracting data from the OpenWeatherMap API.
  */
 public interface iAPI {
-    
+
     /**
      * Returns coordinates for a location.
      * @param loc Name of the location for which coordinates should be fetched.
      * @return String.
      */
     public List<LocationModel> lookUpLocation(String loc);
-    
+
     /**
      * Returns the current weather for the given coordinates.
      * @param lat The latitude of the location.

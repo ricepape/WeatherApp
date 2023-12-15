@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ReadAPI implements iAPI {
     private static final String API_KEY = "17bd51fb7bb76a6427811ec042b35080";
-    
+
     /**
      * @param url
      * @return request
@@ -31,7 +31,7 @@ public class ReadAPI implements iAPI {
                 .build();
         return request;
     }
-    
+
     /**
      * Returns coordinates for a location.
      * @param loc Name of the location for which coordinates should be fetched.
@@ -64,7 +64,7 @@ public class ReadAPI implements iAPI {
     }
 
     public List<ForecastModel> getForecast(double lat, double lon){
-        String apiUrl = String.format("https://api.openweathermap.org/data/2.5/forecast.hourly?lat=%f&lon=%f&appid=%s", lat, lon, API_KEY);
+        String apiUrl = String.format("https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s", lat, lon, API_KEY);
         HttpRequest request = createHttpRequest(apiUrl);
 
         try {
