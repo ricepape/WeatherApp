@@ -63,13 +63,27 @@ public class ReadAPI implements iAPI {
         return null;
     }
 
-    public List<ForecastModel> getForecast(double lat, double lon){
+    public List<ForecastModel> getForecastHourly(double lat, double lon){
         String apiUrl = String.format("https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=%f&lon=%f&appid=%s", lat, lon, API_KEY);
         HttpRequest request = createHttpRequest(apiUrl);
 
         try {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             return Forecast.fetchForecastData(response);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();  // Handle the exception appropriately
+        }
+
+        return null;
+    }
+    
+    public List<ForecastModel> getForecastDaily(double lat, double lon){
+        String apiUrl = String.format("https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&cnt=16&appid=%s", lat, lon, API_KEY);
+        HttpRequest request = createHttpRequest(apiUrl);
+
+        try {
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            return Forecast.fetchForecastDataDaily(response);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();  // Handle the exception appropriately
         }

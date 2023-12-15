@@ -106,39 +106,63 @@ public class ForecastController {
         }
     
         LocationModel locationModel = model.get(0);
-        List<ForecastModel> forecastModels = readAPI.getForecast(locationModel.getLatitude(), locationModel.getLongitude());
-
-        if (forecastModels.isEmpty()) {
+        List<ForecastModel> forecastModels_daily = readAPI.getForecastDaily(locationModel.getLatitude(), locationModel.getLongitude());
+        
+        List<ForecastModel> forecastModels_hourly = readAPI.getForecastHourly(locationModel.getLatitude(), locationModel.getLongitude());
+        
+        for (ForecastModel forecastModel: forecastModels_daily){
+            updateUI_daily(forecastModel);
+        }
+        
+        if (forecastModels_hourly.isEmpty()) {
             errorLabel.setText("No forecast data found");
             return;
         }
-
+        
         initialize();
-
-        //hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
-        //dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
-
-        for (ForecastModel forecastModel: forecastModels){
-            updateUI(forecastModel);
+        hourlyForecastTable.getColumns().addAll(dateColumn,maxTempColumn, minTempColumn, tempColumn, humidityColumn, windSpeedColumn);
+        for (ForecastModel forecastModel: forecastModels_hourly){
+            updateUI_hourly(forecastModel);
         }
+
+        if (forecastModels_daily.isEmpty()) {
+            errorLabel.setText("No forecast data found");
+            return;
+        }
+        
+        initialize();
+        dailyForecastTable.getColumns().addAll(dateColumn,hourColumn, maxTempColumn, minTempColumn, tempColumn, humidityColumn);
+
+        
+        
+        
+        
+        
     }
     
-    private void updateUI(ForecastModel model) {
+    private void updateUI_daily(ForecastModel model) {
+        // Update the tables
+        dailyForecastTable.getItems().add(model); // Add to daily forecast table
+    }
+    
+    private void updateUI_hourly(ForecastModel model) {
         // Update the tables
         hourlyForecastTable.getItems().add(model); // Add to hourly forecast table
-        dailyForecastTable.getItems().add(model); // Add to daily forecast table
     }
 
     private void initialize() {
         // Initialize columns for forecast table
-        TableColumn<ForecastModel, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
+        TableColumn<ForecastModel, Integer> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getDt()).asObject());
 
-        TableColumn<ForecastModel, Integer> hourColumn = new TableColumn<>("Hour");
-        hourColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getDt()).asObject());
+        TableColumn<ForecastModel, String> hourColumn = new TableColumn<>("Hour");
+        hourColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDtTxt()));
 
         TableColumn<ForecastModel, String> tempColumn = new TableColumn<>("Temperature");
         tempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getTemperature())));
+        
+        TableColumn<ForecastModel, String> tempColumn_daily = new TableColumn<>("Temperature");
+        tempColumn_daily.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getTemperature())));
 
         TableColumn<ForecastModel, String> maxTempColumn = new TableColumn<>("Max Temperature");
         maxTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMaxTemperature())));
@@ -148,9 +172,21 @@ public class ForecastController {
 
         TableColumn<ForecastModel, String> feelsLikeTempColumn = new TableColumn<>("Feels Like Temperature");
         feelsLikeTempColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getFeelsLike())));
+        
+        TableColumn<ForecastModel, String> maxTempColumn_daily = new TableColumn<>("Max Temperature");
+        maxTempColumn_daily.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMaxTemperature())));
+
+        TableColumn<ForecastModel, String> minTempColumn_daily = new TableColumn<>("Min Temperature");
+        minTempColumn_daily.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getMinTemperature())));
+
+        TableColumn<ForecastModel, String> feelsLikeTempColumn_daily = new TableColumn<>("Feels Like Temperature");
+        feelsLikeTempColumn_daily.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getFeelsLike())));
 
         TableColumn<ForecastModel, String> humidityColumn = new TableColumn<>("Humidity");
         humidityColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getHumidity())));
+        
+        TableColumn<ForecastModel, String> humidityColumn_daily = new TableColumn<>("Humidity");
+        humidityColumn_daily.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getHumidity())));
 
         TableColumn<ForecastModel, String> windSpeedColumn = new TableColumn<>("Wind Speed");
         windSpeedColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getWindSpeed())));
@@ -158,8 +194,8 @@ public class ForecastController {
         hourlyForecastTable.getColumns().clear();
         dailyForecastTable.getColumns().clear();
 
-        hourlyForecastTable.getColumns().addAll(hourColumn, tempColumn, humidityColumn, windSpeedColumn);
-        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn, minTempColumn);
+        hourlyForecastTable.getColumns().addAll(hourColumn,maxTempColumn, minTempColumn, tempColumn, feelsLikeTempColumn,humidityColumn, windSpeedColumn);
+        dailyForecastTable.getColumns().addAll(dateColumn, maxTempColumn_daily, minTempColumn_daily, tempColumn_daily,feelsLikeTempColumn_daily, humidityColumn_daily);
     }
     
 }

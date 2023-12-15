@@ -56,6 +56,45 @@ public class Forecast {
         }
         return ForecastList;
     }
+    
+    public static List<ForecastModel> fetchForecastDataDaily(HttpResponse<String> response) {
+        List<ForecastModel> ForecastList = new ArrayList<>();
+        String responseBody = response.body();
+        JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
+
+        JsonArray listForecastDataReturn = json.getAsJsonArray("list");
+        if (listForecastDataReturn != null) {
+            for (int i = 0; i < listForecastDataReturn.size(); i++) {
+                ForecastModel model;
+                JsonObject dataToJson = listForecastDataReturn.get(i).getAsJsonObject();
+                int dt = dataToJson.get("dt").getAsInt();
+                double temp = dataToJson.get("temp").getAsJsonObject().get("day").getAsDouble();
+                double feels_like = dataToJson.get("feels_like").getAsJsonObject().get("day").getAsDouble();
+                double temp_min = dataToJson.get("temp").getAsJsonObject().get("min").getAsDouble();
+                double temp_max = dataToJson.get("temp").getAsJsonObject().get("max").getAsDouble();
+                double pressure = dataToJson.get("pressure").getAsDouble();
+                double humidity = dataToJson.get("humidity").getAsDouble();
+                JsonArray weatherArray = dataToJson.getAsJsonArray("weather");
+                JsonObject weatherObject = weatherArray.get(0).getAsJsonObject();
+                int weatherId = weatherObject.get("id").getAsInt();
+                String weatherMain = weatherObject.get("main").getAsString();
+                String weatherDescription = weatherObject.get("description").getAsString();
+                String weatherIcon = weatherObject.get("icon").getAsString();
+                double cloudsAll = 0;
+                double windSpeed = 0;
+                String sysPod = "";
+                String dtTxt = "";
+
+                model = new ForecastModel(dt, temp, feels_like, temp_min, temp_max, pressure, humidity, weatherId, weatherMain, weatherDescription, weatherIcon, cloudsAll, windSpeed, sysPod, dtTxt);
+                ForecastList.add(model);
+            }
+
+
+        } else {
+            // handling error properly
+        }
+        return ForecastList;
+    }
 
 
 }

@@ -28,10 +28,18 @@ public interface iAPI {
     public WeatherModel getCurrentWeather(double lat, double lon);
 
     /**
-     * Returns a forecast for the given coordinates.
+     * Returns a daily forecast for the given coordinates.
      * @param lat The latitude of the location.
      * @param lon The longitude of the location.
      * @return String.
      */
-    public List<ForecastModel> getForecast(double lat, double lon);
+    public List<ForecastModel> getForecastDaily(double lat, double lon);
+    
+    /**
+     * Returns an hourly forecast for the given coordinates.
+     * @param lat The latitude of the location.
+     * @param lon The longitude of the location.
+     * @return String.
+     */
+    public List<ForecastModel> getForecastHourly(double lat, double lon);
 }
