@@ -5,8 +5,7 @@
 package fi.tuni.prog3.weatherapp;
 
 /**
- *
- * @author vudinhthi2304
+ * author: Thi Vu, Anh Tran
  */
 public class WeatherModel {
 

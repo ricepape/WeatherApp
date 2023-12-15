@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 
 /**
  *
- * @author vudinhthi2304
+ * author: Thi Vu, Anh Tran
  */
 public class Forecast {
     public static List<ForecastModel> fetchForecastData(HttpResponse<String> response) {

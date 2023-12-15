@@ -7,6 +7,9 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * author: Anh Tran, Thi Vu
+ */
 public class Location {
     public static List<LocationModel> fetchLocationData(HttpResponse<String> response) {
        

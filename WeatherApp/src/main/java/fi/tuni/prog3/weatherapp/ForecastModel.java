@@ -7,6 +7,10 @@ package fi.tuni.prog3.weatherapp;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * author: Anh Tran, Thi Vu
+ */
+
 // Make a class for saving all the json component above
 public class ForecastModel {
     private int dt;

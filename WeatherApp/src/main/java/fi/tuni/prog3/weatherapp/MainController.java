@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * author: Thi Vu, Anh Tran
+ */
 public class MainController {
 
     @FXML

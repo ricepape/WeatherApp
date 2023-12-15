@@ -6,7 +6,7 @@ package fi.tuni.prog3.weatherapp;
 
 /**
  *
- * @author vudinhthi2304
+ * author: Anh Tran, Thi Vu
  */
 public class LocationModel {
     

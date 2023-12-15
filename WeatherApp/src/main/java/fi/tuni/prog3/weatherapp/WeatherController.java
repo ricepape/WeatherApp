@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**
+ * author: Thi Vu, Anh Tran
+ */
 public class WeatherController {
 
     @FXML

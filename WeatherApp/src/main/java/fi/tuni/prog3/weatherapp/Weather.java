@@ -4,7 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.net.http.HttpResponse;
-
+/**
+ * author: Thi Vu, Anh Tran
+ */
 public class Weather {
     public static WeatherModel fetchWeatherData(HttpResponse<String> response) {
         WeatherModel weatherModel = new WeatherModel();

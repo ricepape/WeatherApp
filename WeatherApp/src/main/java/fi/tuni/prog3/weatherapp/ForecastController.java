@@ -9,6 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
+/**
+ * author: Thi Vu, Anh Tran
+ */
+
 public class ForecastController {
     @FXML
     private TableView<ForecastModel> hourlyForecastTable;
